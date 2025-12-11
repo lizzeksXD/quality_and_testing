@@ -1,0 +1,47 @@
+<!-- app/views/index.html -->
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Мини-песочница — MVC на Flask</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Мини-песочница №1 — MVC в Flask</h1>
+      <p class="subtitle">Простая демонстрация разделения контроллера, модели и представления.</p>
+    </header>
+
+    <section class="description">
+      <p>
+        Это небольшое приложение на Flask, где:
+        <ul>
+          <li>Model — доменные классы и репозиторий (app/models)</li>
+          <li>Controller — thin-контроллеры (app/controllers)</li>
+          <li>View — Jinja2 шаблоны (app/views)</li>
+        </ul>
+      </p>
+      <p>В примере реализована простая работа с книгами и заглушечная аутентификация для демонстрации редиректов.</p>
+    </section>
+
+    <nav class="actions">
+      <!-- кнопка аутентификации -->
+      {% if current_user.is_authenticated %}
+        <span>Выполнен вход как: <strong>{{ current_user.username }}</strong></span>
+        <a class="button" href="{{ url_for('auth.logout') }}">Выйти</a>
+      {% else %}
+        <a class="button primary" href="{{ url_for('auth.login') }}">Аутентификация</a>
+      {% endif %}
+
+      <!-- переход в список книг -->
+      <a class="button" href="{{ url_for('books.list_books') }}">Перейти к книгам</a>
+    </nav>
+
+    <footer>
+      <small>Версия: мини-демо</small>
+    </footer>
+  </main>
+</body>
+</html>

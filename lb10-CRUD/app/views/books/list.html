@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Книги</h1>
+
+    <form method="post" action="{{ url_for('books.update_book') }}">
+      <input name="id" placeholder="ID книги" required>
+      <input name="new_title" placeholder="Новое название">
+      <input name="new_author" placeholder="Новый автор">
+      <button type="submit">Заменить</button>
+    </form>
+
+    <hr>
+
+    <ul>
+      {% for b in books %}
+      <li>
+        {{ b.id }}. {{ b.title }} — {{ b.author }}
+        <form method="post" action="{{ url_for('books.delete_book', book_id=b.id) }}" style="display:inline;">
+          <button type="submit" style="background:none; border:none; color:red; font-weight:bold; cursor:pointer;">×</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <form method="post">
+      <input name="title" placeholder="Название">
+      <input name="author" placeholder="Автор">
+      <button type="submit">Добавить</button>
+    </form>
+  </body>
+</html>
